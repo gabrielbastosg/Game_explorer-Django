@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Explorador de Jogos{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'games/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'games/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'games/css/game_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'games/css/favorites.css' %}">
+    <link rel="stylesheet" href="{% static 'games/css/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'games/css/my_shelf.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="{% url 'home' %}" class="navbar-brand">🎮 Explorador de Jogos</a>
+
+            <div class="navbar-links">
+                <a href="{% url 'home' %}">Início</a>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'favorites' %}">Favoritos</a>
+                    <a href="{% url 'my_shelf' %}">Minha Estante</a>
+                    <span class="navbar-user">Olá, {{ user.username }}!</span>
+                    <form method="post" action="{% url 'logout' %}" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-ghost">Sair</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Entrar</a>
+                    <a href="{% url 'register' %}" class="btn btn-primary">Cadastrar</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            Dados fornecidos por <a href="https://rawg.io/" target="_blank" rel="noopener">RAWG</a>
+        </div>
+    </footer>
+</body>
+</html>

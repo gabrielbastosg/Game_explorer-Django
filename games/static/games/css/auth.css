@@ -1,0 +1,75 @@
+/* ===========================================================
+   auth.css — telas de login e cadastro
+   =========================================================== */
+
+.auth-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    max-width: 420px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.auth-card h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* ---------- Formulário ---------- */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* o {{ form.as_p }} envolve cada campo num <p> */
+.auth-form p {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
+}
+
+.auth-form label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.auth-form input {
+    width: 100%;
+}
+
+.auth-form .btn-primary {
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+/* esconde os textos de ajuda/regras de senha que o Django gera
+   (a validação continua no servidor; só os textos somem) */
+.auth-form .helptext {
+    display: none;
+}
+
+/* mensagens de ERRO continuam visíveis (em vermelho) */
+.auth-form .errorlist {
+    list-style: none;
+    padding-left: 0;
+    color: #ff5d6c;
+    font-size: 0.82rem;
+}
+
+/* ---------- Link de troca login/cadastro ---------- */
+.auth-switch {
+    text-align: center;
+    margin-top: 1.25rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.auth-switch a {
+    color: var(--accent);
+    font-weight: 600;
+}

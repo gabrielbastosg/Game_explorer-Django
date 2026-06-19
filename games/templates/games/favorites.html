@@ -1,0 +1,27 @@
+{% extends 'games/base.html' %}
+
+{% block title %}Meus Favoritos{% endblock %}
+
+{% block content %}
+    <h1>Meus Favoritos</h1>
+
+    <div class="games-grid">
+        {% for fav in favorites %}
+            <div class="game-card fav-card">
+                <a href="{% url 'game_detail' fav.game_id %}">
+                    <div class="game-card-img">
+                        <img src="{{ fav.background_image }}" alt="{{ fav.name }}">
+                    </div>
+                </a>
+                <div class="game-card-body">
+                    <a href="{% url 'game_detail' fav.game_id %}">
+                        <h2 class="game-card-title">{{ fav.name }}</h2>
+                    </a>
+                    <a href="{% url 'remove_favorite' fav.game_id %}" class="btn btn-ghost remove-btn">🗑 Remover</a>
+                </div>
+            </div>
+        {% empty %}
+            <p class="empty-state">Você ainda não favoritou nenhum jogo.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

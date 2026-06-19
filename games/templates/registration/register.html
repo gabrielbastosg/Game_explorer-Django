@@ -1,0 +1,17 @@
+{% extends 'games/base.html' %}
+
+{% block title %}Cadastrar{% endblock %}
+
+{% block content %}
+    <div class="auth-card">
+        <h1>Criar conta</h1>
+
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+
+        <p class="auth-switch">Já tem conta? <a href="{% url 'login' %}">Entrar</a></p>
+    </div>
+{% endblock %}

@@ -1,0 +1,84 @@
+/* ===========================================================
+   home.css — barra de busca + grade de cards
+   =========================================================== */
+
+/* ---------- Barra de busca ---------- */
+.search-form {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+    max-width: 560px;
+}
+
+.search-form input[type="text"] {
+    flex: 1;
+}
+
+/* ---------- Grade de jogos ---------- */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ---------- Card ---------- */
+.game-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+}
+
+.game-card-img {
+    aspect-ratio: 16 / 9;
+    background: var(--bg);
+    overflow: hidden;
+}
+
+.game-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.game-card-body {
+    padding: 0.9rem 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.game-card-title {
+    font-size: 1.05rem;
+    line-height: 1.3;
+}
+
+.game-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.game-card-meta .rating {
+    color: #ffd54f;
+    font-weight: 600;
+}
+
+/* ---------- Estado vazio ---------- */
+.empty-state {
+    color: var(--text-muted);
+    grid-column: 1 / -1;
+    padding: 2rem 0;
+}

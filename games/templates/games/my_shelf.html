@@ -1,0 +1,67 @@
+{% extends 'games/base.html' %}
+
+{% block title %}Minha Estante{% endblock %}
+
+{% block content %}
+    <h1>Minha Estante</h1>
+
+    <section class="shelf-section">
+        <h2 class="shelf-title">🎯 Quero jogar</h2>
+        <div class="games-grid">
+            {% for item in quero %}
+                <div class="game-card">
+                    <a href="{% url 'game_detail' item.game_id %}">
+                        <div class="game-card-img">
+                            <img src="{{ item.background_image }}" alt="{{ item.name }}">
+                        </div>
+                        <div class="game-card-body">
+                            <h3 class="game-card-title">{{ item.name }}</h3>
+                        </div>
+                    </a>
+                </div>
+            {% empty %}
+                <p class="empty-state">Nada aqui ainda.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="shelf-section">
+        <h2 class="shelf-title">🎮 Jogando</h2>
+        <div class="games-grid">
+            {% for item in jogando %}
+                <div class="game-card">
+                    <a href="{% url 'game_detail' item.game_id %}">
+                        <div class="game-card-img">
+                            <img src="{{ item.background_image }}" alt="{{ item.name }}">
+                        </div>
+                        <div class="game-card-body">
+                            <h3 class="game-card-title">{{ item.name }}</h3>
+                        </div>
+                    </a>
+                </div>
+            {% empty %}
+                <p class="empty-state">Nada aqui ainda.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="shelf-section">
+        <h2 class="shelf-title">✅ Zerei</h2>
+        <div class="games-grid">
+            {% for item in zerei %}
+                <div class="game-card">
+                    <a href="{% url 'game_detail' item.game_id %}">
+                        <div class="game-card-img">
+                            <img src="{{ item.background_image }}" alt="{{ item.name }}">
+                        </div>
+                        <div class="game-card-body">
+                            <h3 class="game-card-title">{{ item.name }}</h3>
+                        </div>
+                    </a>
+                </div>
+            {% empty %}
+                <p class="empty-state">Nada aqui ainda.</p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

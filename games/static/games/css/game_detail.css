@@ -1,0 +1,113 @@
+/* ===========================================================
+   game_detail.css — página de detalhe do jogo
+   =========================================================== */
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.back-link:hover {
+    color: var(--accent);
+}
+
+/* ---------- Topo: imagem + infos ---------- */
+.detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+    margin-bottom: 2.5rem;
+}
+
+.detail-hero img {
+    width: 100%;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    display: block;
+}
+
+.detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.detail-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.detail-meta .rating {
+    color: #ffd54f;
+    font-weight: 600;
+}
+
+/* ---------- Gêneros (tags) ---------- */
+.detail-genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.genre-tag {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ---------- Botão favoritar ---------- */
+.detail-info .btn-primary {
+    align-self: flex-start;
+}
+
+/* ---------- Estante: botões de status ---------- */
+.status-box {
+    margin-top: 0.4rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+}
+
+.status-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+}
+
+.status-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.status-buttons form {
+    margin: 0;
+}
+
+/* ---------- Seção "Sobre" ---------- */
+.detail-section-title {
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-description {
+    color: var(--text-muted);
+    max-width: 75ch;
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 720px) {
+    .detail {
+        grid-template-columns: 1fr;
+    }
+}

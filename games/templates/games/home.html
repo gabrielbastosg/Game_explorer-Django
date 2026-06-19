@@ -1,0 +1,31 @@
+{% extends 'games/base.html' %}
+
+{% block title %}Explorador de Jogos{% endblock %}
+
+{% block content %}
+    <h1>Explorador de Jogos</h1>
+
+    <form method="get" action="" class="search-form">
+        <input type="text" name="search" value="{{ search }}" placeholder="Pesquisar jogos...">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <div class="games-grid">
+        {% for game in games %}
+            <a href="{% url 'game_detail' game.id %}" class="game-card">
+                <div class="game-card-img">
+                    <img src="{{ game.background_image }}" alt="{{ game.name }}">
+                </div>
+                <div class="game-card-body">
+                    <h2 class="game-card-title">{{ game.name }}</h2>
+                    <div class="game-card-meta">
+                        <span class="rating">⭐ {{ game.rating }}</span>
+                        <span class="released">{{ game.released }}</span>
+                    </div>
+                </div>
+            </a>
+        {% empty %}
+            <p class="empty-state">Nenhum jogo encontrado.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

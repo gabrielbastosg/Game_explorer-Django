@@ -1,0 +1,27 @@
+/* ===========================================================
+   favorites.css — grade de favoritos + botão remover
+   (reaproveita .games-grid e .game-card de home.css)
+   =========================================================== */
+
+.fav-card .game-card-body {
+    gap: 0.9rem;
+}
+
+.fav-card .game-card-title {
+    transition: color 0.15s ease;
+}
+
+.fav-card:hover .game-card-title {
+    color: #fff;
+}
+
+.remove-btn {
+    align-self: flex-start;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.85rem;
+}
+
+.remove-btn:hover {
+    color: #ff5d6c;
+    border-color: #ff5d6c;
+}

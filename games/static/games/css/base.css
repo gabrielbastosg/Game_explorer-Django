@@ -1,0 +1,191 @@
+/* ===========================================================
+   base.css — tema global (escuro + acentos roxo/azul)
+   =========================================================== */
+
+:root {
+    --bg:          #0f1020;   /* fundo da página */
+    --bg-elev:     #1a1b30;   /* superfícies elevadas (cards, navbar) */
+    --bg-elev-2:   #23244044; /* hover sutil */
+    --border:      #2c2d4a;
+    --text:        #e8e8f0;
+    --text-muted:  #9a9ab5;
+
+    --accent:      #7c4dff;   /* roxo */
+    --accent-2:    #2979ff;   /* azul */
+    --accent-grad: linear-gradient(135deg, #7c4dff, #2979ff);
+
+    --radius:      12px;
+    --shadow:      0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+a:hover {
+    color: #fff;
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+    background: var(--bg-elev);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.navbar-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.navbar-brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    flex-wrap: wrap;
+}
+
+.navbar-links a {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.navbar-links a:hover {
+    color: #fff;
+}
+
+.navbar-user {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.logout-form {
+    display: inline;
+}
+
+/* ---------- Container ---------- */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+/* ---------- Títulos ---------- */
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+}
+
+h2 {
+    font-size: 1.25rem;
+}
+
+/* ---------- Botões ---------- */
+.btn {
+    display: inline-block;
+    border: none;
+    border-radius: 8px;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.12s ease, opacity 0.15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: var(--accent-grad);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    opacity: 0.92;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+    color: #fff;
+    border-color: var(--accent);
+}
+
+/* ---------- Formulários ---------- */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    padding: 0.6rem 0.85rem;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    border-color: var(--accent);
+}
+
+input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ---------- Rodapé ---------- */
+.footer {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+}
+
+.footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.footer-inner a {
+    color: var(--accent);
+    font-weight: 600;
+}

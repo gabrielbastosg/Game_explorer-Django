@@ -1,0 +1,53 @@
+{% extends 'games/base.html' %}
+
+{% block title %}{{ game.name }}{% endblock %}
+
+{% block content %}
+    <a href="{% url 'home' %}" class="back-link">← Voltar</a>
+
+    <div class="detail">
+        <div class="detail-hero">
+            <img src="{{ game.background_image }}" alt="{{ game.name }}">
+        </div>
+
+        <div class="detail-info">
+            <h1>{{ game.name }}</h1>
+
+            <div class="detail-meta">
+                <span class="rating">⭐ {{ game.rating }}</span>
+                <span class="released">Lançamento: {{ game.released }}</span>
+            </div>
+
+            <div class="detail-genres">
+                {% for genre in game.genres %}
+                    <span class="genre-tag">{{ genre.name }}</span>
+                {% endfor %}
+            </div>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'add_favorite' game.id %}" class="btn btn-primary">❤️ Favoritar</a>
+
+                <div class="status-box">
+                    <p class="status-label">Minha estante:</p>
+                    <div class="status-buttons">
+                        <form method="post" action="{% url 'set_status' game.id %}">
+                            {% csrf_token %}
+                            <button type="submit" name="status" value="quero" class="btn {% if current_status == 'quero' %}btn-primary{% else %}btn-ghost{% endif %}">Quero jogar</button>
+                        </form>
+                        <form method="post" action="{% url 'set_status' game.id %}">
+                            {% csrf_token %}
+                            <button type="submit" name="status" value="jogando" class="btn {% if current_status == 'jogando' %}btn-primary{% else %}btn-ghost{% endif %}">Jogando</button>
+                        </form>
+                        <form method="post" action="{% url 'set_status' game.id %}">
+                            {% csrf_token %}
+                            <button type="submit" name="status" value="zerei" class="btn {% if current_status == 'zerei' %}btn-primary{% else %}btn-ghost{% endif %}">Zerei</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <h2 class="detail-section-title">Sobre</h2>
+    <p class="detail-description">{{ game.description_raw }}</p>
+{% endblock %}

@@ -1,0 +1,39 @@
+/* ===========================================================
+   my_shelf.css — página "Minha Estante" (jogos por status)
+   =========================================================== */
+
+.shelf-section {
+    margin-bottom: 3rem;
+}
+
+.shelf-title {
+    font-size: 1.35rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    position: relative;
+}
+
+/* linha de acento roxo→azul embaixo de cada título de seção */
+.shelf-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: var(--border);
+}
+
+.shelf-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 64px;
+    background: var(--accent-grad);
+    z-index: 1;
+}
