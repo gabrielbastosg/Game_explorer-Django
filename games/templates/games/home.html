@@ -3,18 +3,29 @@
 {% block title %}Explorador de Jogos{% endblock %}
 
 {% block content %}
-    <h1>Explorador de Jogos</h1>
+    <section class="hero">
+        <h1 class="hero-title">Explore o universo dos games</h1>
+        <p class="hero-subtitle">Busque, descubra detalhes e monte sua estante pessoal.</p>
 
-    <form method="get" action="" class="search-form">
-        <input type="text" name="search" value="{{ search }}" placeholder="Pesquisar jogos...">
-        <button type="submit" class="btn btn-primary">Buscar</button>
-    </form>
+        <form method="get" action="" class="search-form">
+            <input type="text" name="search" value="{{ search }}" placeholder="Pesquisar jogos...">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+    </section>
+
+    {% if search %}
+        <p class="results-info">Resultados para "<strong>{{ search }}</strong>"</p>
+    {% endif %}
 
     <div class="games-grid">
         {% for game in games %}
             <a href="{% url 'game_detail' game.id %}" class="game-card">
-                <div class="game-card-img">
-                    <img src="{{ game.background_image }}" alt="{{ game.name }}">
+                <div class="game-card-img{% if not game.background_image %} no-image{% endif %}">
+                    {% if game.background_image %}
+                        <img src="{{ game.background_image }}" alt="{{ game.name }}"
+                             loading="lazy"
+                             onerror="this.closest('.game-card-img').classList.add('no-image'); this.remove();">
+                    {% endif %}
                 </div>
                 <div class="game-card-body">
                     <h2 class="game-card-title">{{ game.name }}</h2>
