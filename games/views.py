@@ -5,6 +5,7 @@ from django.contrib.auth import login
 from .models import FavoriteGame, GameStatus
 from .forms import CadastroForm
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 # Create your views here.
 
 API_KEY = config('RAWG_API_KEY')
@@ -37,11 +38,17 @@ def home(request):
 
 def game_detail(request, game_id):
     url = f'https://api.rawg.io/api/games/{game_id}?key={API_KEY}'
-    response = requests.get(url)
-    game = response.json()
+    try:
+        game = requests.get(url).json()
+    except (requests.RequestException, ValueError):
+        raise Http404("Não foi possível carregar este jogo.")
 
-    shots_url=f'https://api.rawg.io/api/games/{game_id}/screenshots?key={API_KEY}'
-    screenshots =  requests.get(shots_url).json().get('results', [])
+    # screenshots são um extra: se falharem, seguimos sem a galeria
+    shots_url = f'https://api.rawg.io/api/games/{game_id}/screenshots?key={API_KEY}'
+    try:
+        screenshots = requests.get(shots_url).json().get('results', [])
+    except (requests.RequestException, ValueError):
+        screenshots = []
 
     current_status = None
     if request.user.is_authenticated:
@@ -133,8 +140,13 @@ def my_shelf(request):
     jogando = GameStatus.objects.filter(user=request.user, status='jogando')
     zerei = GameStatus.objects.filter(user=request.user, status='zerei')
 
-    return render(request, 'games/my_shelf.html', {    
+    total = quero.count() + jogando.count() + zerei.count()
+    progresso = round(zerei.count() / total * 100) if total else 0
+
+    return render(request, 'games/my_shelf.html', {
         'quero': quero,
         'jogando': jogando,
         'zerei': zerei,
+        'total': total,
+        'progresso': progresso,
     })

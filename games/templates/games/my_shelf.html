@@ -4,6 +4,30 @@
 
 {% block content %}
     <h1>Minha Estante</h1>
+    <div class="dashboard">
+        <div class="stat">
+            <span class="stat-num">{{ quero|length }}</span>
+            <span class="stat-label">🎯 Quero jogar</span>
+        </div>
+        <div class="stat">
+            <span class="stat-num">{{ jogando|length }}</span>
+            <span class="stat-label">🎮 Jogando</span>
+        </div>
+        <div class="stat">
+            <span class="stat-num">{{ zerei|length }}</span>
+            <span class="stat-label">✅ Zerei</span>
+        </div>
+    </div>
+
+    <div class="progress-box">
+        <div class="progress-info">
+            <span>Progresso da estante</span>
+            <span>{{ progresso }}% zerado</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: {{ progresso }}%;"></div>
+        </div>
+    </div>
 
     <section class="shelf-section">
         <h2 class="shelf-title">🎯 Quero jogar</h2>
