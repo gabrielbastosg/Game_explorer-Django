@@ -9,16 +9,18 @@
         <h2 class="shelf-title">🎯 Quero jogar</h2>
         <div class="games-grid">
             {% for item in quero %}
-                <div class="game-card">
-                    <a href="{% url 'game_detail' item.game_id %}">
-                        <div class="game-card-img">
-                            <img src="{{ item.background_image }}" alt="{{ item.name }}">
-                        </div>
-                        <div class="game-card-body">
-                            <h3 class="game-card-title">{{ item.name }}</h3>
-                        </div>
-                    </a>
-                </div>
+                <a href="{% url 'game_detail' item.game_id %}" class="game-card">
+                    <div class="game-card-img{% if not item.background_image %} no-image{% endif %}">
+                        {% if item.background_image %}
+                            <img src="{{ item.background_image }}" alt="{{ item.name }}" loading="lazy"
+                                 onerror="this.closest('.game-card-img').classList.add('no-image'); this.remove();">
+                        {% endif %}
+                        <span class="status-badge status-quero">Quero jogar</span>
+                    </div>
+                    <div class="game-card-body">
+                        <h3 class="game-card-title">{{ item.name }}</h3>
+                    </div>
+                </a>
             {% empty %}
                 <p class="empty-state">Nada aqui ainda.</p>
             {% endfor %}
@@ -29,16 +31,18 @@
         <h2 class="shelf-title">🎮 Jogando</h2>
         <div class="games-grid">
             {% for item in jogando %}
-                <div class="game-card">
-                    <a href="{% url 'game_detail' item.game_id %}">
-                        <div class="game-card-img">
-                            <img src="{{ item.background_image }}" alt="{{ item.name }}">
-                        </div>
-                        <div class="game-card-body">
-                            <h3 class="game-card-title">{{ item.name }}</h3>
-                        </div>
-                    </a>
-                </div>
+                <a href="{% url 'game_detail' item.game_id %}" class="game-card">
+                    <div class="game-card-img{% if not item.background_image %} no-image{% endif %}">
+                        {% if item.background_image %}
+                            <img src="{{ item.background_image }}" alt="{{ item.name }}" loading="lazy"
+                                 onerror="this.closest('.game-card-img').classList.add('no-image'); this.remove();">
+                        {% endif %}
+                        <span class="status-badge status-jogando">Jogando</span>
+                    </div>
+                    <div class="game-card-body">
+                        <h3 class="game-card-title">{{ item.name }}</h3>
+                    </div>
+                </a>
             {% empty %}
                 <p class="empty-state">Nada aqui ainda.</p>
             {% endfor %}
@@ -49,16 +53,18 @@
         <h2 class="shelf-title">✅ Zerei</h2>
         <div class="games-grid">
             {% for item in zerei %}
-                <div class="game-card">
-                    <a href="{% url 'game_detail' item.game_id %}">
-                        <div class="game-card-img">
-                            <img src="{{ item.background_image }}" alt="{{ item.name }}">
-                        </div>
-                        <div class="game-card-body">
-                            <h3 class="game-card-title">{{ item.name }}</h3>
-                        </div>
-                    </a>
-                </div>
+                <a href="{% url 'game_detail' item.game_id %}" class="game-card">
+                    <div class="game-card-img{% if not item.background_image %} no-image{% endif %}">
+                        {% if item.background_image %}
+                            <img src="{{ item.background_image }}" alt="{{ item.name }}" loading="lazy"
+                                 onerror="this.closest('.game-card-img').classList.add('no-image'); this.remove();">
+                        {% endif %}
+                        <span class="status-badge status-zerei">Zerei</span>
+                    </div>
+                    <div class="game-card-body">
+                        <h3 class="game-card-title">{{ item.name }}</h3>
+                    </div>
+                </a>
             {% empty %}
                 <p class="empty-state">Nada aqui ainda.</p>
             {% endfor %}

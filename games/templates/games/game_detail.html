@@ -1,9 +1,9 @@
 {% extends 'games/base.html' %}
-
+{% load static %}
 {% block title %}{{ game.name }}{% endblock %}
 
 {% block content %}
-    <a href="{% url 'home' %}" class="back-link">← Voltar</a>
+    <a href="{% url 'home' %}" class="back-link"><span class="back-arrow">←</span> Voltar</a>
 
     <div class="detail">
         <div class="detail-hero">
@@ -49,5 +49,10 @@
     </div>
 
     <h2 class="detail-section-title">Sobre</h2>
-    <p class="detail-description">{{ game.description_raw }}</p>
+    <p class="detail-description" id="game-description">{{ game.description_raw }}</p>
+    <button type="button" class="btn btn-ghost read-more-btn" id="read-more-btn">Ver mais ▾</button>
+{% endblock %} 
+{% block extra_js %}
+    <script src="{% static 'games/js/game_detail.js' %}"></script>
 {% endblock %}
+

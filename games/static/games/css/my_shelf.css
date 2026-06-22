@@ -37,3 +37,31 @@
     background: var(--accent-grad);
     z-index: 1;
 }
+
+/* ---------- Badge de status (sobre a imagem do card) ---------- */
+.status-badge {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 2;
+    padding: 0.22rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #fff;
+    backdrop-filter: blur(2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.status-quero {
+    background: rgba(255, 167, 38, 0.92);   /* âmbar */
+}
+
+.status-jogando {
+    background: rgba(124, 77, 255, 0.92);   /* roxo (accent) */
+}
+
+.status-zerei {
+    background: rgba(38, 166, 91, 0.92);    /* verde */
+}

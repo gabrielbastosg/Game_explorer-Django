@@ -62,13 +62,15 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1),
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
 }
 
 .game-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
     border-color: var(--accent);
-    box-shadow: var(--shadow);
+    box-shadow: 0 14px 30px -12px rgba(124, 77, 255, 0.45);
 }
 
 .game-card-img {
@@ -85,6 +87,11 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.game-card:hover .game-card-img img {
+    transform: scale(1.06);
 }
 
 /* placeholder: só aparece quando o jogo não tem imagem (ou ela falha ao carregar) */
@@ -123,6 +130,12 @@
 .game-card-meta .rating {
     color: #ffd54f;
     font-weight: 600;
+}
+
+.game-card-meta .rating-empty {
+    color: var(--text-muted);
+    font-weight: 400;
+    font-style: italic;
 }
 
 /* ---------- Estado vazio ---------- */

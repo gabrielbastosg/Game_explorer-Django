@@ -30,8 +30,14 @@
                 <div class="game-card-body">
                     <h2 class="game-card-title">{{ game.name }}</h2>
                     <div class="game-card-meta">
-                        <span class="rating">⭐ {{ game.rating }}</span>
-                        <span class="released">{{ game.released }}</span>
+                        {% if game.rating %}
+                            <span class="rating">⭐ {{ game.rating }}</span>
+                        {% else %}
+                            <span class="rating rating-empty">Sem nota</span>
+                        {% endif %}
+                        {% if game.released %}
+                            <span class="released">📅 {{ game.released|slice:":4" }}</span>
+                        {% endif %}
                     </div>
                 </div>
             </a>
