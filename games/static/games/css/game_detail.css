@@ -40,7 +40,7 @@
     margin-bottom: 2.5rem;
 }
 
-.detail-hero img {
+.detail-hero > img {
     width: 100%;
     border-radius: var(--radius);
     border: 1px solid var(--border);
@@ -67,6 +67,53 @@
     font-weight: 600;
 }
 
+.thumbnails {
+    display:flex;
+    gap: 0.6rem;
+    margin-top: 0.8rem;
+    overflow-x: auto; 
+    padding-bottom: 0.4rem;
+}
+/* deixa a barra de rolagem fininha e no tema */
+.thumbnails::-webkit-scrollbar {
+    height: 6px;
+}
+
+.thumbnails::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.thumbnails::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 999px;
+}
+
+.thumbnails::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+.thumb {
+    width: 100px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    opacity: 0.6;
+    flex-shrink: 0;          /* não deixa as miniaturas encolherem */
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+.thumb:hover {
+    opacity: 1;
+}
+
+/* a miniatura selecionada (classe adicionada pelo JS) */
+.thumb.active {
+    opacity: 1;
+    border-color: var(--accent);
+}
+
 /* ---------- Gêneros (tags) ---------- */
 .detail-genres {
     display: flex;
@@ -84,7 +131,8 @@
 }
 
 /* ---------- Botão favoritar ---------- */
-.detail-info .btn-primary {
+.detail-info .btn-primary,
+.detail-info .btn-fav-active {
     align-self: flex-start;
 }
 
@@ -151,6 +199,12 @@
 
 .read-more-btn {
     margin-top: 1rem;
+}
+
+.btn-fav-active {
+    background: rgba(38, 166, 91, 0.18);
+    color: #4ade80;
+    border: 1px solid rgba(38, 166, 91, 0.5);
 }
 /* ---------- Responsivo ---------- */
 @media (max-width: 720px) {

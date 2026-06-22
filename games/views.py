@@ -40,13 +40,25 @@ def game_detail(request, game_id):
     response = requests.get(url)
     game = response.json()
 
+    shots_url=f'https://api.rawg.io/api/games/{game_id}/screenshots?key={API_KEY}'
+    screenshots =  requests.get(shots_url).json().get('results', [])
+
     current_status = None
     if request.user.is_authenticated:
         game_status = GameStatus.objects.filter(user=request.user, game_id=game_id).first()
         if game_status:
             current_status = game_status.status
 
-    return render(request, 'games/game_detail.html', {'game': game, 'current_status': current_status})
+    is_favorite = False
+    if request.user.is_authenticated:
+        is_favorite = FavoriteGame.objects.filter(user=request.user, game_id=game_id).exists()
+
+    return render(request, 'games/game_detail.html', {
+        'game': game,
+        'current_status': current_status,
+        'screenshots': screenshots,
+        'is_favorite': is_favorite,
+        })
 
 
 def register(request):
@@ -88,7 +100,8 @@ def favorites(request):
 @login_required
 def remove_favorite(request, game_id):
     FavoriteGame.objects.filter(user=request.user, game_id=game_id).delete()
-    return redirect('favorites')
+    next_url = request.META.get('HTTP_REFERER')
+    return redirect(next_url or 'favorites')
 
 
 @login_required

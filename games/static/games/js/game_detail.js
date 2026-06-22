@@ -15,3 +15,15 @@ botao.addEventListener("click", () => {
         botao.textContent = "Ver mais ▾";
     }
 });
+
+const mainImage = document.getElementById('main-image');
+const thumbs = document.querySelectorAll('.thumb');
+
+thumbs.forEach((thumb) => {
+    thumb.addEventListener("click", () => {
+        mainImage.src = thumb.src;
+
+        thumbs.forEach((t) => t.classList.remove("active"));
+        thumb.classList.add("active");
+    });
+});

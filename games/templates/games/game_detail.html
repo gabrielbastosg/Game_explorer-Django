@@ -7,7 +7,14 @@
 
     <div class="detail">
         <div class="detail-hero">
-            <img src="{{ game.background_image }}" alt="{{ game.name }}">
+            <img src="{{ game.background_image }}" alt="{{ game.name }}" id="main-image">
+            {% if screenshots %}
+                <div class="thumbnails">
+                    {% for shot in screenshots %}
+                        <img src="{{ shot.image }}" alt="Screenshot {{ forloop.counter }}" class="thumb" loading="lazy">
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
 
         <div class="detail-info">
@@ -25,7 +32,11 @@
             </div>
 
             {% if user.is_authenticated %}
-                <a href="{% url 'add_favorite' game.id %}" class="btn btn-primary">❤️ Favoritar</a>
+                {% if is_favorite %}
+                    <a href="{% url 'remove_favorite' game.id %}" class="btn btn-fav-active">✓ Favoritado</a>
+                {% else %}
+                    <a href="{% url 'add_favorite' game.id %}" class="btn btn-primary">❤️ Favoritar</a>
+                {% endif %}
 
                 <div class="status-box">
                     <p class="status-label">Minha estante:</p>
