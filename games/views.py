@@ -10,16 +10,23 @@ from django.contrib.auth.decorators import login_required
 API_KEY = config('RAWG_API_KEY')
 
 def home(request):
-    search = request.GET.get('search','')
+    search = request.GET.get('search', '')
+    page = request.GET.get('page', 1)
+
+    url = f'https://api.rawg.io/api/games?key={API_KEY}&page={page}'
     if search:
-        url = f'https://api.rawg.io/api/games?key={API_KEY}&search={search}'
-    else:
-        url = f'https://api.rawg.io/api/games?key={API_KEY}'
+        url += f'&search={search}'
 
     response = requests.get(url)
     data = response.json()
-    games = data['results']
-    return render(request, 'games/home.html', {'games': games, 'search': search})
+
+    return render(request, 'games/home.html', {
+        'games': data['results'],
+        'search': search,
+        'page': int(page),
+        'has_next': data['next'] is not None,
+        'has_previous': data['previous'] is not None,
+    })
 
 
 def game_detail(request, game_id):

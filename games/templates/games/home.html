@@ -45,4 +45,15 @@
             <p class="empty-state">Nenhum jogo encontrado.</p>
         {% endfor %}
     </div>
+    <div class="pagination">
+        {% if has_previous %}
+            <a href="?page={{ page|add:'-1' }}{% if search %}&search={{ search }}{% endif %}" class="btn btn-ghost">← Anterior</a>
+        {% endif %}
+
+        <span class="page-current">Página {{ page }}</span>
+
+        {% if has_next %}
+            <a href="?page={{ page|add:'1' }}{% if search %}&search={{ search }}{% endif %}" class="btn btn-primary">Próxima →</a>
+        {% endif %}
+    </div>
 {% endblock %}
