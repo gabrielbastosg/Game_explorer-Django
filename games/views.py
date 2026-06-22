@@ -11,7 +11,13 @@ API_KEY = config('RAWG_API_KEY')
 
 def home(request):
     search = request.GET.get('search', '')
-    page = request.GET.get('page', 1)
+    try:
+        page = int(request.GET.get('page', 1))
+    except ValueError:
+        page = 1  
+
+    if page < 1:
+        page = 1  
 
     url = f'https://api.rawg.io/api/games?key={API_KEY}&page={page}'
     if search:
@@ -23,7 +29,7 @@ def home(request):
     return render(request, 'games/home.html', {
         'games': data['results'],
         'search': search,
-        'page': int(page),
+        'page':page,
         'has_next': data['next'] is not None,
         'has_previous': data['previous'] is not None,
     })
