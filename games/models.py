@@ -22,6 +22,8 @@ class GameStatus(models.Model):
     name = models.CharField(max_length=255)
     background_image = models.URLField(max_length=200, blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    nota = models.PositiveSmallIntegerField(null=True, blank=True)
+    review = models.TextField(blank=True)
 
 
     def __str__(self):

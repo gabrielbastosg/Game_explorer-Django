@@ -10,4 +10,5 @@ urlpatterns = [
     path('remove_favorite/<int:game_id>/', views.remove_favorite, name='remove_favorite'),
     path('set_status/<int:game_id>/', views.set_status, name='set_status'),
     path('minha-estante/', views.my_shelf, name='my_shelf'),
+    path('set_review/<int:game_id>/', views.set_review, name='set_review'),
     ]

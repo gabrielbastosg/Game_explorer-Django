@@ -77,18 +77,29 @@
         <h2 class="shelf-title">✅ Zerei</h2>
         <div class="games-grid">
             {% for item in zerei %}
-                <a href="{% url 'game_detail' item.game_id %}" class="game-card">
-                    <div class="game-card-img{% if not item.background_image %} no-image{% endif %}">
-                        {% if item.background_image %}
-                            <img src="{{ item.background_image }}" alt="{{ item.name }}" loading="lazy"
-                                 onerror="this.closest('.game-card-img').classList.add('no-image'); this.remove();">
-                        {% endif %}
-                        <span class="status-badge status-zerei">Zerei</span>
-                    </div>
-                    <div class="game-card-body">
-                        <h3 class="game-card-title">{{ item.name }}</h3>
-                    </div>
-                </a>
+                <div class="shelf-item">
+                    <a href="{% url 'game_detail' item.game_id %}" class="game-card">
+                        <div class="game-card-img{% if not item.background_image %} no-image{% endif %}">
+                            {% if item.background_image %}
+                                <img src="{{ item.background_image }}" alt="{{ item.name }}" loading="lazy"
+                                     onerror="this.closest('.game-card-img').classList.add('no-image'); this.remove();">
+                            {% endif %}
+                            <span class="status-badge status-zerei">Zerei</span>
+                        </div>
+                        <div class="game-card-body">
+                            <h3 class="game-card-title">{{ item.name }}</h3>
+                            {% if item.nota %}
+                                <p class="my-rating">⭐ {{ item.nota }}/5</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                    <form method="post" action="{% url 'set_review' item.game_id %}" class="review-form">
+                        {% csrf_token %}
+                        <input type="number" name="nota" min="1" max="5" value="{{ item.nota|default:'' }}" placeholder="Nota 1-5">
+                        <textarea name="review" rows="2" placeholder="Comentário...">{{ item.review }}</textarea>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </form>
+                </div>
             {% empty %}
                 <p class="empty-state">Nada aqui ainda.</p>
             {% endfor %}

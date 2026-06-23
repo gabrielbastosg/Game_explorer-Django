@@ -137,6 +137,15 @@ def set_status(request, game_id):
         )
     return redirect('game_detail', game_id=game_id)
 
+@login_required
+def set_review(request, game_id):
+    if request.method == "POST":
+        game_status = GameStatus.objects.filter(user=request.user, game_id=game_id).first()
+        if game_status:
+            game_status.nota = request.POST.get("nota") or None
+            game_status.review = request.POST.get("review", "")
+            game_status.save()
+    return redirect('my_shelf')   
 
 @login_required
 def my_shelf(request):

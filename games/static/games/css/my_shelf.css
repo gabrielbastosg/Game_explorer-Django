@@ -124,3 +124,38 @@
     border-radius: 999px;
     transition: width 0.4s ease;
 }
+/* ---------- Avaliação pessoal (seção Zerei) ---------- */
+.shelf-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.my-rating {
+    color: #ffd54f;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.review-form input[type="number"],
+.review-form textarea {
+    width: 100%;
+    padding: 0.45rem 0.6rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg-elev);
+    color: var(--text);
+    font-size: 0.85rem;
+    font-family: inherit;
+}
+
+.review-form textarea {
+    resize: vertical;
+}
