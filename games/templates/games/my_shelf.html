@@ -1,5 +1,5 @@
 {% extends 'games/base.html' %}
-
+{% load static %}
 {% block title %}Minha Estante{% endblock %}
 
 {% block content %}
@@ -25,7 +25,7 @@
             <span>{{ progresso }}% zerado</span>
         </div>
         <div class="progress-bar">
-            <div class="progress-fill" style="width: {{ progresso }}%;"></div>
+            <div class="progress-fill" data-progress="{{ progresso }}"></div>
         </div>
     </div>
 
@@ -105,4 +105,8 @@
             {% endfor %}
         </div>
     </section>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'games/js/my_shelf.js' %}"></script>
 {% endblock %}
