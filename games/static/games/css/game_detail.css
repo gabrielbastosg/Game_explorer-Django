@@ -206,6 +206,36 @@
     color: #4ade80;
     border: 1px solid rgba(38, 166, 91, 0.5);
 }
+
+/* ---------- Plataformas (versões específicas) ---------- */
+.detail-platforms {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.detail-platforms-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.platform-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.platform-pill {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.8rem;
+    color: var(--text);
+}
+
+
 /* ---------- Responsivo ---------- */
 @media (max-width: 720px) {
     .detail {

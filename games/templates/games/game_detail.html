@@ -30,6 +30,17 @@
                     <span class="genre-tag">{{ genre.name }}</span>
                 {% endfor %}
             </div>
+            
+            {% if game.platforms %}
+                <div class="detail-platforms">
+                    <p class="detail-platforms-label">Disponível em:</p>
+                    <div class="platform-list">
+                        {% for p in game.platforms %}
+                            <span class="platform-pill">{{ p.platform.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
 
             {% if user.is_authenticated %}
                 {% if is_favorite %}
