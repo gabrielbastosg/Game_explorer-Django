@@ -159,3 +159,45 @@
     color: var(--text-muted);
     font-size: 0.9rem;
 }
+
+/* ---------- Tags de plataforma ---------- */
+.platforms {
+    display:flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.platform-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    background: var(--bg);
+    white-space: nowrap;
+}
+
+.platform-filter {
+    padding: 0 0.8rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg-elev);
+    color: var(--text);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+/* figurinha padrão: vale pra qualquer plataforma sem ícone próprio. */
+
+.platform-tag::before { content: "🕹️ "; }
+
+/* ícone por plataforma, via ::before na classe dinâmica */
+.platform-pc::before          { content: "🖥️ "; }
+.platform-playstation::before { content: "🎮 "; }
+.platform-xbox::before        { content: "🟢 "; }
+.platform-nintendo::before    { content: "🔴 "; }
+.platform-mac::before         { content: "🍎 "; }
+.platform-linux::before       { content: "🐧 "; }
+.platform-android::before     { content: "🤖 "; }
+.platform-ios::before         { content: "📱 "; }
+.platform-web::before         { content: "🌐 "; }

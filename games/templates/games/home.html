@@ -9,6 +9,13 @@
 
         <form method="get" action="" class="search-form">
             <input type="text" name="search" value="{{ search }}" placeholder="Pesquisar jogos...">
+                <select name="platform" onchange="this.form.submit()" class="platform-filter">
+                <option value="">Todas as plataformas</option>
+                <option value="1" {% if platform == "1" %}selected{% endif %}>🖥️ PC</option>
+                <option value="2" {% if platform == "2" %}selected{% endif %}>🎮 PlayStation</option>
+                <option value="3" {% if platform == "3" %}selected{% endif %}>🟢 Xbox</option>
+                <option value="7" {% if platform == "7" %}selected{% endif %}>🔴 Nintendo</option>
+            </select>
             <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
     </section>
@@ -39,6 +46,14 @@
                             <span class="released">📅 {{ game.released|slice:":4" }}</span>
                         {% endif %}
                     </div>
+
+                    {% if game.parent_platforms %}
+                        <div class="platforms">
+                            {% for p in game.parent_platforms %}
+                                <span class="platform-tag platform-{{ p.platform.slug }}">{{ p.platform.name }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             </a>
         {% empty %}
@@ -47,13 +62,13 @@
     </div>
     <div class="pagination">
         {% if has_previous %}
-            <a href="?page={{ page|add:'-1' }}{% if search %}&search={{ search }}{% endif %}" class="btn btn-ghost">← Anterior</a>
+            <a href="?page={{ page|add:'-1' }}{% if search %}&search={{ search }}{% endif %}{% if platform %}&platform={{ platform }}{% endif %}" class="btn btn-ghost">← Anterior</a>
         {% endif %}
 
         <span class="page-current">Página {{ page }}</span>
 
         {% if has_next %}
-            <a href="?page={{ page|add:'1' }}{% if search %}&search={{ search }}{% endif %}" class="btn btn-primary">Próxima →</a>
+            <a href="?page={{ page|add:'1' }}{% if search %}&search={{ search }}{% endif %}{% if platform %}&platform={{ platform }}{% endif %}" class="btn btn-primary">Próxima →</a>
         {% endif %}
     </div>
 {% endblock %}
