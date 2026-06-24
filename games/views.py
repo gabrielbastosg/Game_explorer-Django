@@ -15,6 +15,7 @@ def home(request):
     search = request.GET.get('search', '')
     platform = request.GET.get('platform', '')
     ordering = request.GET.get('ordering', '')
+    genre = request.GET.get('genre', '')
     try:
         page = int(request.GET.get('page', 1))
     except ValueError:
@@ -28,6 +29,8 @@ def home(request):
         url += f'&search={search}&search_precise=true'
     if platform:
         url += f'&parent_platforms={platform}'
+    if genre:
+        url += f'&genres={genre}'
     if ordering:
         url += f'&ordering={ordering}'
         if ordering == '-released':
@@ -42,6 +45,7 @@ def home(request):
         'search': search,
         'platform': platform,
         'ordering': ordering,
+        'genre': genre,
         'page':page,
         'has_next': data['next'] is not None,
         'has_previous': data['previous'] is not None,

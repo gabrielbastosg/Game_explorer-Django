@@ -23,7 +23,20 @@
                 <option value="-released" {% if ordering == "-released" %}selected{% endif %}>📅 Mais recentes</option>
                 <option value="name" {% if ordering == "name" %}selected{% endif %}>🔤 Nome (A–Z)</option>
             </select>
-            
+
+            <select name="genre" onchange="this.form.submit()" class="platform-filter">
+                <option value="">Todos os gêneros</option>
+                <option value="action" {% if genre == "action" %}selected{% endif %}>🔫 Ação</option>
+                <option value="role-playing-games-rpg" {% if genre == "role-playing-games-rpg" %}selected{% endif %}>🐉 RPG</option>
+                <option value="adventure" {% if genre == "adventure" %}selected{% endif %}>🗺️ Aventura</option>
+                <option value="shooter" {% if genre == "shooter" %}selected{% endif %}>🎯 Tiro</option>
+                <option value="strategy" {% if genre == "strategy" %}selected{% endif %}>♟️ Estratégia</option>
+                <option value="indie" {% if genre == "indie" %}selected{% endif %}>💡 Indie</option>
+                <option value="sports" {% if genre == "sports" %}selected{% endif %}>⚽ Esporte</option>
+                <option value="racing" {% if genre == "racing" %}selected{% endif %}>🏎️ Corrida</option>
+                <option value="puzzle" {% if genre == "puzzle" %}selected{% endif %}>🧩 Puzzle</option>
+            </select>  
+
             <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
     </section>
@@ -59,6 +72,7 @@
                         <div class="platforms">
                             {% for p in game.parent_platforms %}
                                 <span class="platform-tag platform-{{ p.platform.slug }}">{{ p.platform.name }}</span>
+                                
                             {% endfor %}
                         </div>
                     {% endif %}
@@ -70,13 +84,13 @@
     </div>
     <div class="pagination">
         {% if has_previous %}
-            <a href="?page={{ page|add:'-1' }}{% if search %}&search={{ search }}{% endif %}{% if platform %}&platform={{ platform }}{% endif %}{% if ordering %}&ordering={{ ordering }}{% endif %}" class="btn btn-ghost">← Anterior</a>
+            <a href="?page={{ page|add:'-1' }}{% if search %}&search={{ search }}{% endif %}{% if platform %}&platform={{ platform }}{% endif %}{% if ordering %}&ordering={{ ordering }}{% endif %}{% if genre %}&genre={{ genre }}{% endif %}" class="btn btn-ghost">← Anterior</a>
         {% endif %}
 
         <span class="page-current">Página {{ page }}</span>
 
         {% if has_next %}
-            <a href="?page={{ page|add:'1' }}{% if search %}&search={{ search }}{% endif %}{% if platform %}&platform={{ platform }}{% endif %}{% if ordering %}&ordering={{ ordering }}{% endif %}" class="btn btn-primary">Próxima →</a>
+            <a href="?page={{ page|add:'1' }}{% if search %}&search={{ search }}{% endif %}{% if platform %}&platform={{ platform }}{% endif %}{% if ordering %}&ordering={{ ordering }}{% endif %}{% if genre %}&genre={{ genre }}{% endif %}" class="btn btn-primary">Próxima →</a>
         {% endif %}
     </div>
 {% endblock %}
