@@ -6,6 +6,7 @@ from .models import FavoriteGame, GameStatus
 from .forms import CadastroForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from datetime import date
 # Create your views here.
 
 API_KEY = config('RAWG_API_KEY')
@@ -13,6 +14,7 @@ API_KEY = config('RAWG_API_KEY')
 def home(request):
     search = request.GET.get('search', '')
     platform = request.GET.get('platform', '')
+    ordering = request.GET.get('ordering', '')
     try:
         page = int(request.GET.get('page', 1))
     except ValueError:
@@ -23,9 +25,14 @@ def home(request):
 
     url = f'https://api.rawg.io/api/games?key={API_KEY}&page={page}'
     if search:
-        url += f'&search={search}'
+        url += f'&search={search}&search_precise=true'
     if platform:
         url += f'&parent_platforms={platform}'
+    if ordering:
+        url += f'&ordering={ordering}'
+        if ordering == '-released':
+            hoje = date.today().isoformat()
+            url += f'&dates=1970-01-01,{hoje}'
 
     response = requests.get(url)
     data = response.json()
@@ -34,6 +41,7 @@ def home(request):
         'games': data['results'],
         'search': search,
         'platform': platform,
+        'ordering': ordering,
         'page':page,
         'has_next': data['next'] is not None,
         'has_previous': data['previous'] is not None,

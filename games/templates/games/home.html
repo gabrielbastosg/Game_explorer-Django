@@ -16,6 +16,14 @@
                 <option value="3" {% if platform == "3" %}selected{% endif %}>🟢 Xbox</option>
                 <option value="7" {% if platform == "7" %}selected{% endif %}>🔴 Nintendo</option>
             </select>
+
+            <select name="ordering" onchange="this.form.submit()" class="platform-filter">
+                <option value="">Ordenar por...</option>
+                <option value="-rating" {% if ordering == "-rating" %}selected{% endif %}>⭐ Mais avaliados</option>
+                <option value="-released" {% if ordering == "-released" %}selected{% endif %}>📅 Mais recentes</option>
+                <option value="name" {% if ordering == "name" %}selected{% endif %}>🔤 Nome (A–Z)</option>
+            </select>
+            
             <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
     </section>
@@ -62,13 +70,13 @@
     </div>
     <div class="pagination">
         {% if has_previous %}
-            <a href="?page={{ page|add:'-1' }}{% if search %}&search={{ search }}{% endif %}{% if platform %}&platform={{ platform }}{% endif %}" class="btn btn-ghost">← Anterior</a>
+            <a href="?page={{ page|add:'-1' }}{% if search %}&search={{ search }}{% endif %}{% if platform %}&platform={{ platform }}{% endif %}{% if ordering %}&ordering={{ ordering }}{% endif %}" class="btn btn-ghost">← Anterior</a>
         {% endif %}
 
         <span class="page-current">Página {{ page }}</span>
 
         {% if has_next %}
-            <a href="?page={{ page|add:'1' }}{% if search %}&search={{ search }}{% endif %}{% if platform %}&platform={{ platform }}{% endif %}" class="btn btn-primary">Próxima →</a>
+            <a href="?page={{ page|add:'1' }}{% if search %}&search={{ search }}{% endif %}{% if platform %}&platform={{ platform }}{% endif %}{% if ordering %}&ordering={{ ordering }}{% endif %}" class="btn btn-primary">Próxima →</a>
         {% endif %}
     </div>
 {% endblock %}
