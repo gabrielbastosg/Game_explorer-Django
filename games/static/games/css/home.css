@@ -38,13 +38,21 @@
 /* ---------- Barra de busca ---------- */
 .search-form {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.6rem;
-    max-width: 560px;
+    max-width: 640px;
     margin: 0 auto;
 }
 
 .search-form input[type="text"] {
-    flex: 1;
+    flex: 1 1 100%;
+}
+.search-form .platform-filter {
+    flex: 1 1 0;
+}
+
+.search-form .btn{
+    flex: 0 0 auto;
 }
 
 /* ---------- Grade de jogos ---------- */
@@ -52,6 +60,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1.5rem;
+    margin-top: 0.5rem;
 }
 
 /* ---------- Card ---------- */
@@ -117,6 +126,12 @@
 .game-card-title {
     font-size: 1.05rem;
     line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;          /* ← a versão padrão, cala o aviso do linter */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.7em;
 }
 
 .game-card-meta {
@@ -129,7 +144,10 @@
 
 .game-card-meta .rating {
     color: #ffd54f;
-    font-weight: 600;
+    font-weight: 700;
+    background: rgba(255, 213, 79, 0.12);
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
 }
 
 .game-card-meta .rating-empty {
@@ -179,13 +197,19 @@
 }
 
 .platform-filter {
-    padding: 0 0.8rem;
+    padding: 0.55rem 0.8rem;   
     border-radius: var(--radius);
     border: 1px solid var(--border);
     background: var(--bg-elev);
     color: var(--text);
     font-size: 0.9rem;
     cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+
+.platform-filter:focus {
+    border-color: var(--accent);
+    outline: none;
 }
 /* figurinha padrão: vale pra qualquer plataforma sem ícone próprio. */
 
