@@ -42,9 +42,11 @@
         </form>
     </section>
 
-    {% if search %}
-        <p class="results-info">Resultados para "<strong>{{ search }}</strong>"</p>
-    {% endif %}
+        <p class="results-info">
+            {% if search %}Resultados para "<strong>{{ search }}</strong>" — {% endif %}
+            <strong>{{ count }}</strong> jogo{{ count|pluralize }} encontrado{{ count|pluralize }}
+        </p>
+
 
     <div class="games-grid">
         {% for game in games %}

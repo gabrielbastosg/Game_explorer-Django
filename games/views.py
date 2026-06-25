@@ -6,7 +6,7 @@ from .models import FavoriteGame, GameStatus
 from .forms import CadastroForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from datetime import date
+from datetime import date,timedelta
 # Create your views here.
 
 API_KEY = config('RAWG_API_KEY')
@@ -34,14 +34,24 @@ def home(request):
     if ordering:
         url += f'&ordering={ordering}'
         if ordering == '-released':
-            hoje = date.today().isoformat()
-            url += f'&dates=1970-01-01,{hoje}'
+            # nao pegamos os lancamentos da ultima semana: jogo recem-saido
+            # ainda tem nota 0 e esvaziaria o topo depois do filtro abaixo.
+            limite = (date.today() - timedelta(days=90)).isoformat()
+            url += f'&dates=1970-01-01,{limite}'
 
     response = requests.get(url)
     data = response.json()
 
+    games = data['results']
+
+    # No modo "mais recentes", a RAWG traz muito lançamento obscuro sem
+    # avaliacao; escondemos os que ainda nao tem nota de jogadores.
+    if ordering == '-released':
+        games = [g for g in games if g.get('rating', 0) >= 50]
+
     return render(request, 'games/home.html', {
-        'games': data['results'],
+        'games': games,
+        'count': data.get('count', 0),
         'search': search,
         'platform': platform,
         'ordering': ordering,
