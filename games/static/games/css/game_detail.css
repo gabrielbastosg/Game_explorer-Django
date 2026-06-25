@@ -164,6 +164,18 @@
     margin-bottom: 0.8rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border);
+    position: relative;
+}
+
+/* linhinha de acento, igual aos títulos da estante */
+.detail-section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 2px;
+    width: 56px;
+    background: var(--accent-grad);
 }
 
 .detail-description {
@@ -234,7 +246,17 @@
     font-size: 0.8rem;
     color: var(--text);
 }
+/* ---------- Hover nas tags (gênero + plataforma) ---------- */
+.genre-tag,
+.platform-pill {
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
 
+.genre-tag:hover,
+.platform-pill:hover {
+    border-color: var(--accent);
+    color: #fff;
+}
 
 /* ---------- Responsivo ---------- */
 @media (max-width: 720px) {

@@ -21,7 +21,11 @@
                 </div>
             </div>
         {% empty %}
-            <p class="empty-state">Você ainda não favoritou nenhum jogo.</p>
+            <div class="fav-empty">
+                <span class="fav-empty-icon">🕹️</span>
+                <p>Você ainda não favoritou nenhum jogo.</p>
+                <a href="{% url 'home' %}" class="btn btn-primary">Explorar jogos</a>
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

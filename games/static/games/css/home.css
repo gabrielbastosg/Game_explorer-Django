@@ -4,14 +4,30 @@
 
 /* ---------- Hero ---------- */
 .hero {
+    position: relative;
+    overflow: hidden;
     text-align: center;
-    padding: 3rem 1.5rem 3.25rem;
+    padding: clamp(3rem, 7vw, 5rem) 1.5rem;
     margin-bottom: 2.5rem;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background:
-        radial-gradient(80% 120% at 50% -10%, rgba(124, 77, 255, 0.18), transparent 60%),
+        radial-gradient(60% 110% at 50% -10%, rgba(124, 77, 255, 0.28), transparent 60%),
+        radial-gradient(55% 90% at 90% 115%, rgba(41, 121, 255, 0.20), transparent 60%),
         var(--bg-elev);
+}
+.hero-eyebrow {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 1.1rem;
 }
 
 .hero-title {
