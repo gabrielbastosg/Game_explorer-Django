@@ -1,95 +1,125 @@
 # 🎮 Games Explorer
 
-Aplicação web em **Django** que consome a **[API RAWG](https://rawg.io/)** para explorar videogames: listar, buscar, ver detalhes, favoritar e organizar uma **estante pessoal** por status de jogo (Quero jogar / Jogando / Zerei).
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-5-092E20?style=flat&logo=django&logoColor=white)
+![API](https://img.shields.io/badge/API-RAWG-EF233C?style=flat)
+![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow?style=flat)
 
-Interface em **pt-BR**, tema escuro com acentos roxo/azul.
+Aplicação web para descobrir e organizar jogos, construída com **Django** e a **[API RAWG](https://rawg.io/)**.
+
+> Mais do que um catálogo: o Games Explorer tem uma **estante pessoal** onde você acompanha o que quer jogar, está jogando e já zerou — com dashboard, notas e reviews próprios.
 
 ---
 
 ## ✨ Funcionalidades
 
-- 🔎 **Listagem e busca** de jogos em tempo real via API RAWG
-- 🕹️ **Página de detalhe** com imagem, nota, data de lançamento, gêneros e descrição
-- 👤 **Cadastro e login** de usuários (autenticação nativa do Django)
-- ❤️ **Favoritos** por usuário
-- 📚 **Minha Estante** — marque cada jogo como **Quero jogar**, **Jogando** ou **Zerei** e veja-os agrupados por status
-- 🎨 Tema escuro responsivo, com CSS organizado por página
+### 🔍 Exploração
+- Busca de jogos com **contador de resultados**
+- **Filtros combinados**: plataforma (PC · PlayStation · Xbox · Nintendo), gênero e ordenação (mais avaliados · mais recentes · A-Z)
+- Paginação que preserva todos os filtros ativos
+- Página de detalhe com **galeria de screenshots** interativa, plataformas disponíveis e informações completas
+
+### 📚 Estante pessoal
+- Organize seus jogos em três listas: **Quero jogar**, **Jogando** e **Zerei**
+- **Dashboard** com contadores por status e barra de progresso geral
+- Para jogos zerados: adicione uma **nota (1–5)** e uma **review pessoal**
+
+### ❤️ Favoritos & Conta
+- Salve favoritos separados da estante, com página dedicada
+- Cadastro e login — cada usuário tem sua própria estante e favoritos
+
+---
+
+## 🗺️ Fluxo principal
+
+```
+Início
+  └─ Buscar / Filtrar jogos
+       └─ Ver detalhe do jogo
+            ├─ Favoritar ❤️
+            └─ Adicionar à estante 📚
+                 └─ Minha Estante
+                      ├─ Dashboard (contadores + progresso)
+                      ├─ Mudar status (Quero jogar → Jogando → Zerei)
+                      └─ Avaliar e escrever review (jogos zerados)
+```
 
 ---
 
 ## 🛠️ Tecnologias
 
-- **Python** + **Django 5.2**
-- **SQLite** (banco padrão de desenvolvimento)
-- **requests** — chamadas HTTP à API RAWG
-- **python-decouple** — variáveis de ambiente (`.env`)
-- HTML + CSS (sem framework front-end)
+| Camada | Tecnologia |
+|--------|-----------|
+| Backend | Python 3 · Django 5 |
+| API externa | [RAWG Video Games Database](https://rawg.io/apidocs) |
+| Frontend | HTML · CSS · JavaScript vanilla |
+| Banco de dados | SQLite |
+| Configuração | python-decouple (`.env`) |
 
 ---
 
 ## 🚀 Como rodar localmente
 
-### 1. Clone o repositório
+**Pré-requisitos:** Python 3.10+ e pip
 
 ```bash
-git clone https://github.com/gabrielbastosg/games-explorer-django.git
-cd games-explorer-django
-```
+# 1. Clone o repositório
+git clone https://github.com/gabrielbastosg/Game_explorer-Django.git
+cd Game_explorer-Django
 
-### 2. Crie e ative um ambiente virtual
-
-```bash
+# 2. Crie e ative a virtual environment
 python -m venv .venv
 .venv\Scripts\activate        # Windows
 # source .venv/bin/activate   # Linux/macOS
-```
 
-### 3. Instale as dependências
-
-```bash
+# 3. Instale as dependências
 pip install -r requirements.txt
 ```
 
-### 4. Configure a chave da API
+Crie um arquivo `.env` na raiz do projeto:
 
-Crie um arquivo `.env` na raiz (use o `.env.example` como modelo) com a sua chave da RAWG:
-
+```env
+SECRET_KEY=sua_chave_secreta_django
+RAWG_API_KEY=sua_chave_rawg
 ```
-RAWG_API_KEY=sua_chave_aqui
-```
 
-> A chave gratuita pode ser obtida em [rawg.io/apidocs](https://rawg.io/apidocs).
-
-### 5. Aplique as migrações e rode o servidor
+> Chave gratuita da RAWG disponível em [rawg.io/apidocs](https://rawg.io/apidocs).
 
 ```bash
+# 4. Rode as migrations e inicie o servidor
 python manage.py migrate
 python manage.py runserver
 ```
 
-Acesse **http://127.0.0.1:8000/** 🎉
+Acesse **http://127.0.0.1:8000** 🎉
 
 ---
 
-## 📂 Estrutura
+## 📁 Estrutura
 
 ```
 games_explorer/
-├── config/          # configurações do projeto Django
-├── games/           # app principal (views, models, urls, templates, static)
-│   ├── models.py    # FavoriteGame e GameStatus
-│   ├── views.py     # home, busca, detalhe, favoritos, estante
-│   └── templates/
-├── manage.py
-└── requirements.txt
+├── config/              # Configurações do projeto (settings, urls)
+├── games/
+│   ├── templates/       # HTML de cada página
+│   ├── static/          # CSS e JS por página
+│   ├── models.py        # FavoriteGame · GameStatus
+│   ├── views.py         # Lógica e integração com a API RAWG
+│   └── urls.py
+└── manage.py
 ```
 
 ---
 
-## 📌 Créditos
+## 🧠 Aprendizados
 
-Dados de jogos fornecidos por **[RAWG](https://rawg.io/)**.
+- Consumo de API externa com `requests` e tratamento de erros (HTTP 404, falhas de rede)
+- Autenticação e autorização nativas do Django
+- Modelagem relacional com `ForeignKey` para dados isolados por usuário
+- Filtros dinâmicos combinados com preservação de estado na paginação
+- Manipulação do DOM com JavaScript puro (galeria de screenshots)
+- CSS com variáveis, gradientes e animações sem frameworks externos
 
 ---
 
-Projeto desenvolvido por **Gabriel Bastos** como estudo de Django + consumo de APIs. 🚀
+Dados de jogos fornecidos por **[RAWG](https://rawg.io/)** · Desenvolvido por **[Gabriel Bastos](https://github.com/gabrielbastosg)**
