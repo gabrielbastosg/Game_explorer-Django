@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from decouple import config
 import requests
+import hashlib
+from django.core.cache import cache
 from django.contrib.auth import login
 from .models import FavoriteGame, GameStatus
 from .forms import CadastroForm
@@ -10,6 +12,23 @@ from datetime import date,timedelta
 # Create your views here.
 
 API_KEY = config('RAWG_API_KEY')
+
+
+def fetch_rawg(url, timeout=10):
+    """Busca uma URL da RAWG, mas primeiro tenta o cache.
+    Guarda o JSON por 10 minutos para acelerar e poupar a cota da API.
+    Se a API falhar, a excecao sobe para quem chamou tratar."""
+    chave = 'rawg:' + hashlib.md5(url.encode()).hexdigest()
+    cacheado = cache.get(chave)
+    if cacheado is not None:
+        return cacheado
+
+    response = requests.get(url, timeout=timeout)
+    response.raise_for_status()
+    data = response.json()
+    cache.set(chave, data, 60 * 10)   # 10 minutos
+    return data
+
 
 def home(request):
     search = request.GET.get('search', '')
@@ -39,10 +58,13 @@ def home(request):
             limite = (date.today() - timedelta(days=90)).isoformat()
             url += f'&dates=1970-01-01,{limite}'
 
-    response = requests.get(url)
-    data = response.json()
-
-    games = data['results']
+    try:
+        data = fetch_rawg(url)
+        games = data['results']
+    except (requests.RequestException, ValueError, KeyError):
+        # Se a RAWG falhar, mostramos a home vazia em vez de quebrar a pagina.
+        data = {}
+        games = []
 
     # No modo "mais recentes", a RAWG traz muito lançamento obscuro sem
     # avaliacao; escondemos os que ainda nao tem nota de jogadores.
@@ -57,22 +79,22 @@ def home(request):
         'ordering': ordering,
         'genre': genre,
         'page':page,
-        'has_next': data['next'] is not None,
-        'has_previous': data['previous'] is not None,
+        'has_next': data.get('next') is not None,
+        'has_previous': data.get('previous') is not None,
     })
 
 
 def game_detail(request, game_id):
     url = f'https://api.rawg.io/api/games/{game_id}?key={API_KEY}'
     try:
-        game = requests.get(url).json()
+        game = fetch_rawg(url)
     except (requests.RequestException, ValueError):
         raise Http404("Não foi possível carregar este jogo.")
 
     # screenshots são um extra: se falharem, seguimos sem a galeria
     shots_url = f'https://api.rawg.io/api/games/{game_id}/screenshots?key={API_KEY}'
     try:
-        screenshots = requests.get(shots_url).json().get('results', [])
+        screenshots = fetch_rawg(shots_url).get('results', [])
     except (requests.RequestException, ValueError):
         screenshots = []
 
