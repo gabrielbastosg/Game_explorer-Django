@@ -207,3 +207,13 @@ def my_shelf(request):
         'total': total,
         'progresso': progresso,
     })
+
+@login_required
+def delete_review(request, game_id):
+    if request.method == "POST":
+        game_status = GameStatus.objects.filter(user=request.user, game_id=game_id).first()
+        if game_status:
+            game_status.nota = None
+            game_status.review = ""
+            game_status.save()
+    return redirect('my_shelf')

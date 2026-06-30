@@ -90,6 +90,21 @@ class MyShelfTest(TestCase):
         self.assertEqual(response.context['total'], 0)
         self.assertEqual(response.context['progresso'], 0)
 
+    def test_delete_review_limpa_nota_e_comentario(self):
+        # Arrange: um jogo zerado, ja com nota e review preenchidos
+        jogo = GameStatus.objects.create(
+            user=self.user, game_id=42, name='Celeste',
+            status='zerei', nota=5, review='Obra-prima',
+        )
+
+        # Act: simula o clique no botao "Apagar" (um POST para a view)
+        self.client.post(reverse('delete_review', args=[42]))
+
+        # Assert: recarrega do banco e confere que ficou tudo vazio
+        jogo.refresh_from_db()
+        self.assertIsNone(jogo.nota)
+        self.assertEqual(jogo.review, '')
+
 
 class LoginRequiredTest(TestCase):
     def test_favoritos_exige_login(self):

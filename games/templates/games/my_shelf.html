@@ -99,6 +99,12 @@
                         <textarea name="review" rows="2" placeholder="Comentário...">{{ item.review }}</textarea>
                         <button type="submit" class="btn btn-primary">Salvar</button>
                     </form>
+                    {% if item.nota or item.review %}
+                        <form method="post" action="{% url 'delete_review' item.game_id %}" class="delete-review-form">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-ghost">🗑️ Apagar nota e review</button>
+                        </form>
+                    {% endif %}
                 </div>
             {% empty %}
                 <p class="empty-state">Nada aqui ainda.</p>
