@@ -73,6 +73,24 @@
     <h2 class="detail-section-title">Sobre</h2>
     <p class="detail-description" id="game-description">{{ game.description_raw }}</p>
     <button type="button" class="btn btn-ghost read-more-btn" id="read-more-btn">Ver mais ▾</button>
+    {% if similar %}
+        <h2 class="detail-section-title">Jogos relacionados</h2>
+        <div class="games-grid">
+            {% for item in similar %}
+                <a href="{% url 'game_detail' item.id %}" class="game-card">
+                    <div class="game-card-img{% if not item.background_image %} no-image{% endif %}">
+                        {% if item.background_image %}
+                            <img src="{{ item.background_image }}" alt="{{ item.name }}" loading="lazy"
+                                 onerror="this.closest('.game-card-img').classList.add('no-image'); this.remove();">
+                        {% endif %}
+                    </div>
+                    <div class="game-card-body">
+                        <h3 class="game-card-title">{{ item.name }}</h3>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %} 
 {% block extra_js %}
     <script src="{% static 'games/js/game_detail.js' %}"></script>

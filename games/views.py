@@ -98,6 +98,13 @@ def game_detail(request, game_id):
     except (requests.RequestException, ValueError):
         screenshots = []
 
+    # jogos da mesma serie (sequencias, spin-offs): extra opcional, como as screenshots
+    series_url = f'https://api.rawg.io/api/games/{game_id}/game-series?key={API_KEY}&page_size=6'
+    try:
+        similar = fetch_rawg(series_url).get('results', [])
+    except (requests.RequestException, ValueError):
+        similar = []
+
     current_status = None
     if request.user.is_authenticated:
         game_status = GameStatus.objects.filter(user=request.user, game_id=game_id).first()
@@ -113,6 +120,7 @@ def game_detail(request, game_id):
         'current_status': current_status,
         'screenshots': screenshots,
         'is_favorite': is_favorite,
+        'similar': similar,
         })
 
 

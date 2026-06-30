@@ -131,3 +131,23 @@ class ModelTest(TestCase):
             user=self.user, game_id=1, name='Elden Ring', status='jogando',
         )
         self.assertEqual(str(status), 'Elden Ring - jogando')
+
+class GameDetailTest(TestCase):
+    def setUp(self):
+        # fetch_rawg guarda no cache; limpamos pra cada teste comecar do zero.
+        cache.clear()
+
+    @patch('games.views.requests.get')
+    def test_mostra_jogos_relacionados(self, mock_get):
+        # A view bate na RAWG 3 vezes, nesta ordem: jogo, screenshots, serie.
+        # O side_effect em LISTA devolve um item por chamada, na ordem.
+        mock_get.side_effect = [
+            fake_response({'id': 3328, 'name': 'The Witcher 3'}),                  # 1) o jogo
+            fake_response({'results': []}),                                        # 2) screenshots
+            fake_response({'results': [{'id': 1, 'name': 'Thronebreaker'}]}),      # 3) a serie
+        ]
+
+        response = self.client.get(reverse('game_detail', args=[3328]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Thronebreaker')
