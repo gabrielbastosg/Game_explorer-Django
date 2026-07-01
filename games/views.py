@@ -203,6 +203,15 @@ def set_review(request, game_id):
 @login_required
 def my_shelf(request):
     q = request.GET.get('q', '')
+
+    order = request.GET.get('order', '')
+    ORDENS = {
+        'nome':    'name',
+        'nota':    '-nota',
+        'recente': '-id',
+    }
+    campo = ORDENS.get(order)
+
     quero = GameStatus.objects.filter(user=request.user, status='quero')
     jogando = GameStatus.objects.filter(user=request.user, status='jogando')
     zerei = GameStatus.objects.filter(user=request.user, status='zerei')
@@ -211,6 +220,11 @@ def my_shelf(request):
         quero = quero.filter(name__icontains=q)
         jogando = jogando.filter(name__icontains=q)
         zerei = zerei.filter(name__icontains=q)
+
+    if campo:
+        quero = quero.order_by(campo)
+        jogando = jogando.order_by(campo)
+        zerei = zerei.order_by(campo)
 
     total = quero.count() + jogando.count() + zerei.count()
     progresso = round(zerei.count() / total * 100) if total else 0
@@ -227,6 +241,7 @@ def my_shelf(request):
         'media_notas': media_notas,
         'total_avaliados': avaliados.count(),
         'q': q,
+        'order': order,
     })
 
 @login_required

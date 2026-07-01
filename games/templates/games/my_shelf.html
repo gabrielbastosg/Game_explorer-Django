@@ -6,6 +6,12 @@
     <h1>Minha Estante</h1>
     <form method="get" class="shelf-search">
         <input type="text" name="q" value="{{ q }}" placeholder="Buscar na sua estante...">
+        <select name="order" onchange="this.form.submit()">
+            <option value="">Ordenar por...</option>
+            <option value="nome" {% if order == 'nome' %}selected{% endif %}>Nome (A-Z)</option>
+            <option value="nota" {% if order == 'nota' %}selected{% endif %}>Maior nota</option>
+            <option value="recente" {% if order == 'recente' %}selected{% endif %}>Adicionados recentemente</option>
+        </select>
         <button type="submit" class="btn btn-primary">Buscar</button>
     </form>
     {% if not q %}

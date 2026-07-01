@@ -188,6 +188,20 @@
 .shelf-search input[type="text"] {
     flex: 1;
 }
+.shelf-search select {
+    padding: 0.55rem 0.8rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg-elev);
+    color: var(--text);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+.shelf-search select:focus {
+    border-color: var(--accent);
+    outline: none;
+}
 
 @media (max-width: 520px) {
     .dashboard {
