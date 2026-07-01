@@ -178,6 +178,17 @@
     resize: vertical;
 }
 
+/* ---------- Busca na estante ---------- */
+.shelf-search {
+    display: flex;
+    gap: 0.6rem;
+    max-width: 640px;
+    margin-bottom: 1.5rem;
+}
+.shelf-search input[type="text"] {
+    flex: 1;
+}
+
 @media (max-width: 520px) {
     .dashboard {
         grid-template-columns: 1fr;

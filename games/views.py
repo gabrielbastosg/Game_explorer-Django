@@ -202,9 +202,15 @@ def set_review(request, game_id):
 
 @login_required
 def my_shelf(request):
+    q = request.GET.get('q', '')
     quero = GameStatus.objects.filter(user=request.user, status='quero')
     jogando = GameStatus.objects.filter(user=request.user, status='jogando')
     zerei = GameStatus.objects.filter(user=request.user, status='zerei')
+
+    if q:
+        quero = quero.filter(name__icontains=q)
+        jogando = jogando.filter(name__icontains=q)
+        zerei = zerei.filter(name__icontains=q)
 
     total = quero.count() + jogando.count() + zerei.count()
     progresso = round(zerei.count() / total * 100) if total else 0
@@ -220,6 +226,7 @@ def my_shelf(request):
         'progresso': progresso,
         'media_notas': media_notas,
         'total_avaliados': avaliados.count(),
+        'q': q,
     })
 
 @login_required

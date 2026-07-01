@@ -4,6 +4,11 @@
 
 {% block content %}
     <h1>Minha Estante</h1>
+    <form method="get" class="shelf-search">
+        <input type="text" name="q" value="{{ q }}" placeholder="Buscar na sua estante...">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+    {% if not q %}
     <div class="dashboard">
         <div class="stat">
             <span class="stat-num">{{ quero|length }}</span>
@@ -32,6 +37,7 @@
             <div class="progress-fill" data-progress="{{ progresso }}"></div>
         </div>
     </div>
+    {% endif %}
 
     <section class="shelf-section">
         <h2 class="shelf-title">🎯 Quero jogar</h2>
