@@ -105,6 +105,21 @@ class MyShelfTest(TestCase):
         self.assertIsNone(jogo.nota)
         self.assertEqual(jogo.review, '')
 
+    def test_media_notas_ignora_jogos_sem_nota(self):
+        GameStatus.objects.create(user=self.user, game_id=1, name='Jogo A', status='zerei', nota=4)
+        GameStatus.objects.create(user=self.user, game_id=2, name='Jogo B', status='zerei', nota=2)
+        GameStatus.objects.create(user=self.user, game_id=3, name='Jogo C', status='zerei')  # sem nota
+
+        response = self.client.get(reverse('my_shelf'))
+
+        self.assertEqual(response.context['total_avaliados'], 2)
+        self.assertEqual(response.context['media_notas'], 3.0)
+
+    def test_media_notas_none_quando_ninguem_avaliou(self):
+        response = self.client.get(reverse('my_shelf'))
+
+        self.assertIsNone(response.context['media_notas'])
+        self.assertEqual(response.context['total_avaliados'], 0)
 
 class LoginRequiredTest(TestCase):
     def test_favoritos_exige_login(self):

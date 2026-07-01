@@ -17,6 +17,10 @@
             <span class="stat-num">{{ zerei|length }}</span>
             <span class="stat-label">✅ Zerei</span>
         </div>
+        <div class="stat">
+            <span class="stat-num">{% if media_notas %}⭐ {{ media_notas|floatformat:1 }}{% else %}—{% endif %}</span>
+            <span class="stat-label">Nota média ({{ total_avaliados }} avaliado{{ total_avaliados|pluralize }})</span>
+        </div>
     </div>
 
     <div class="progress-box">

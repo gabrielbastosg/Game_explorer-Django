@@ -9,6 +9,7 @@ from .forms import CadastroForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from datetime import date,timedelta
+from django.db.models import Avg
 # Create your views here.
 
 API_KEY = config('RAWG_API_KEY')
@@ -208,12 +209,17 @@ def my_shelf(request):
     total = quero.count() + jogando.count() + zerei.count()
     progresso = round(zerei.count() / total * 100) if total else 0
 
+    avaliados = zerei.exclude(nota__isnull=True)
+    media_notas = avaliados.aggregate(Avg('nota'))['nota__avg']
+
     return render(request, 'games/my_shelf.html', {
         'quero': quero,
         'jogando': jogando,
         'zerei': zerei,
         'total': total,
         'progresso': progresso,
+        'media_notas': media_notas,
+        'total_avaliados': avaliados.count(),
     })
 
 @login_required
